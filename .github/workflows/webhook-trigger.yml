@@ -1,0 +1,10 @@
+name: Trigger Script from Webhook
+on: repository_dispatch
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo1
+        uses: actions/checkout@v2
+      - name: Execute print_hello.sh
+        run: ./print_hello.sh
