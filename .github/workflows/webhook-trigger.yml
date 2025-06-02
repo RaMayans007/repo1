@@ -3,8 +3,19 @@ on: repository_dispatch
 jobs:
   run-script:
     runs-on: ubuntu-latest
+    env:
+      WEBHOOK_SECRET: ${{ secrets.WEBHOOK_SECRET }}
     steps:
       - name: Checkout repo1
         uses: actions/checkout@v2
+
+      - name: Verify Secret Before Execution
+        run: |
+          if [[ "$WEBHOOK_SECRET" != "some random text" ]]; then
+            echo "Invalid secret! Exiting..."
+            exit 1
+          fi
+          echo "Secret verified successfully!"
+
       - name: Execute print_hello.sh
         run: ./print_hello.sh
