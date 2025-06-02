@@ -4,18 +4,18 @@ jobs:
   run-script:
     runs-on: ubuntu-latest
     env:
-      WEBHOOK_SECRET: ${{ secrets.WEBHOOK_SECRET }}
+      WEBHOOK_PAT: ${{ secrets.WEBHOOK_PAT }}
     steps:
       - name: Checkout repo1
         uses: actions/checkout@v2
 
-      - name: Verify Secret Before Execution
+      - name: Verify PAT Before Execution
         run: |
-          if [[ "$WEBHOOK_SECRET" != "some random text" ]]; then
-            echo "Invalid secret! Exiting..."
+          if [[ -z "$WEBHOOK_PAT" ]]; then
+            echo "Missing authentication token! Exiting..."
             exit 1
           fi
-          echo "Secret verified successfully!"
+          echo "Authentication token verified successfully!"
 
       - name: Execute print_hello.sh
         run: ./print_hello.sh
