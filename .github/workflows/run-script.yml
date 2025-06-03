@@ -16,4 +16,4 @@ jobs:
           echo "Triggered by: ${{ github.event.client_payload.source }}"
 
       - name: Run print_hello.sh
-        run: ./print_hello.sh
+        run: chmod +x print_hello.sh && ./print_hello.sh
